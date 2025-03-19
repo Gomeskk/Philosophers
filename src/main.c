@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 12:31:54 by joafaust          #+#    #+#             */
+/*   Updated: 2025/03/19 12:31:55 by joafaust         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Philosophers.h"
 
-int main() 
+int	main(int argc, char **argv)
 {
-    t_table table;
-    
-    init_table(&table);
+	t_simulation	sim;
 
-    pthread_join(table.philosophers[0].thread, NULL);
-    pthread_join(table.philosophers[1].thread, NULL);
-    pthread_join(table.philosophers[2].thread, NULL);
-    pthread_join(table.philosophers[3].thread, NULL);
-    pthread_join(table.philosophers[4].thread, NULL);
-
-    return 0;
+	if (argc < 5 || argc > 6)
+	{
+		printf("Usage: ./philo num_philos time_to_die time_to_eat time_to_sleep [must_eat]\n");
+		return (1);
+	}
+	init_simulation(&sim, argc, argv);
+	start_simulation(&sim);
+	cleanup_simulation(&sim);
+	return (0);
 }

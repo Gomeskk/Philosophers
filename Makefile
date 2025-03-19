@@ -15,7 +15,7 @@ SRC_DIR = src/
 OBJ_DIR = objs
 SRCS = $(shell find $(SRC_DIR) -type f -name "*.c")
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
-NAME = Philosophers
+NAME = philo
 
 # Rules
 all: $(NAME)
@@ -42,5 +42,5 @@ fclean: clean
 re: fclean all
 
 v:					$(NAME)
-					clear && valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --track-origins=yes ./Philosophers
+					clear && valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --track-origins=yes ./philo
 .PHONY: all clean fclean re
