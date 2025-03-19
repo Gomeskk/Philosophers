@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/19 12:32:43 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:11:38 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*philosopher_routine(void *arg)
 			&& philo->meals_eaten >= philo->sim->must_eat_count)
 			break ;
 		print_action(philo->sim, philo->id, "is sleeping");
-		usleep(philo->sim->time_to_sleep * 1000);
+		usleep(philo->sim->time_to_sleep * 1000); //fazer uma função para sleep em si e não usar o usleep, cena de deadlock
 	}
 	return (NULL);
 }
