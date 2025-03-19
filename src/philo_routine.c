@@ -1,33 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
+/*   Updated: 2025/03/19 12:32:43 by joafaust         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Philosophers.h"
 
-void think(int id) 
+long	get_time_in_ms(void)
 {
-    printf("Philosopher %d is thinking\n", id);
-    usleep(1000 * (rand() % 500)); //simulating thinking time
-    //rand() % 500 generates a random number between 0 and 499.
-    //1000 * (rand() % 500) converts it into microseconds (between 0 and 499,000 microseconds).
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void eat(t_philosopher *philo) 
+void	print_action(t_simulation *sim, int id, char *action)
 {
-    pthread_mutex_lock(philo->left_fork);//pick up left fork
-    pthread_mutex_lock(philo->right_fork);//pick up right fork
-    
-    printf("Philosopher %d is eating\n", philo->id);
-    usleep(1000 * (rand() % 500)); //simulating eating time
-    
-    pthread_mutex_unlock(philo->right_fork);//put down right fork
-    pthread_mutex_unlock(philo->left_fork);//put down left fork
+	pthread_mutex_lock(&sim->print_lock);
+	if (!sim->stop)
+		printf("%ld %d %s\n", get_time_in_ms() - sim->start_time, id, action);
+	pthread_mutex_unlock(&sim->print_lock);
 }
 
-void *philosopher_routine(void *arg) 
+void	*philosopher_routine(void *arg)
 {
-    t_philosopher *philo = (t_philosopher *)arg;
+	t_philo	*philo;
 
-    while (1)//infinite loop
-    {
-        think(philo->id);
-        eat(philo);
-    }
-    return NULL;
+	philo = (t_philo *)arg;
+	while (!philo->sim->stop)
+	{
+		print_action(philo->sim, philo->id, "is thinking");
+		pthread_mutex_lock(philo->left_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		print_action(philo->sim, philo->id, "is eating");
+		philo->last_meal_time = get_time_in_ms();
+		usleep(philo->sim->time_to_eat * 1000);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		philo->meals_eaten++;
+		if (philo->sim->must_eat_count > 0
+			&& philo->meals_eaten >= philo->sim->must_eat_count)
+			break ;
+		print_action(philo->sim, philo->id, "is sleeping");
+		usleep(philo->sim->time_to_sleep * 1000);
+	}
+	return (NULL);
+}
+
+void	*monitor_routine(void *arg)
+{
+	t_simulation	*sim;
+	int				i;
+
+	sim = (t_simulation *)arg;
+	i = 0;
+	while (!sim->stop)
+	{
+		if (get_time_in_ms()
+			- sim->philos[i].last_meal_time >= sim->time_to_die)
+		{
+			print_action(sim, sim->philos[i].id, "died");
+			sim->stop = 1;
+			return (NULL);
+		}
+		i++;
+		if (i >= sim->num_philos)
+			i = 0;
+		usleep(1000);
+	}
+	return (NULL);
 }
