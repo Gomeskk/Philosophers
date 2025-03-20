@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 16:09:51 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:30:57 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	has_eaten_enough(t_philo *philo)
 
 void	handle_one_philosopher(t_philo *philo)
 {
-	print_action(philo->sim, philo->id, "is thinking");
+	//print_action(philo->sim, philo->id, "is thinking");
 	pthread_mutex_lock(philo->left_fork);
 	print_action(philo->sim, philo->id, "has taken a fork");
 	usleep(philo->sim->time_to_die * 1000);
