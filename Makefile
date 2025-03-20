@@ -41,6 +41,4 @@ fclean: clean
 
 re: fclean all
 
-v:					$(NAME)
-					clear && valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --track-origins=yes ./philo
 .PHONY: all clean fclean re
