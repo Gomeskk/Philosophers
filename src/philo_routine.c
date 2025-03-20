@@ -6,19 +6,11 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 14:58:13 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:05:59 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
-
-long	get_time_in_ms(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
 
 void	print_action(t_simulation *sim, int id, char *action)
 {

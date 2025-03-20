@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 15:11:53 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:09:51 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	sleep_philo(t_philo *philo)
 {
 	print_action(philo->sim, philo->id, "is sleeping");
 	usleep(philo->sim->time_to_sleep * 1000);
-    /* fazer uma função para sleep em si e não usar o usleep,cena de deadlock */
 }
 
 int	has_eaten_enough(t_philo *philo)

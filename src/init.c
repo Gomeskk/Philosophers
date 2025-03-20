@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:38 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 14:11:00 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:56:05 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	init_simulation(t_simulation *sim, int argc, char **argv)
 	int	i;
 
 	i = 0;
-	sim->num_philos = atoi(argv[1]);
-	sim->time_to_die = atoi(argv[2]);
-	sim->time_to_eat = atoi(argv[3]);
-	sim->time_to_sleep = atoi(argv[4]);
+	sim->num_philos = ft_atoi(argv[1]);
+	sim->time_to_die = ft_atoi(argv[2]);
+	sim->time_to_eat = ft_atoi(argv[3]);
+	sim->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		sim->must_eat_count = atoi(argv[5]);
+		sim->must_eat_count = ft_atoi(argv[5]);
 	else
 		sim->must_eat_count = -1;
 	sim->stop = 0;
