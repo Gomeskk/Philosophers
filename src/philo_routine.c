@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 16:05:59 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:34:51 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*philosopher_routine(void *arg)
 	}
 	while (!philo->sim->stop)
 	{
-		think(philo);
+		think(philo);//meter em ultimo
 		eat(philo);
 		if (has_eaten_enough(philo))
 			break ;
