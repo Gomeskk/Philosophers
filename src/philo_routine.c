@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/19 13:11:38 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:58:13 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,18 @@ void	*philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->sim->num_philos == 1)
+	{
+		handle_one_philosopher(philo);
+		return (NULL);
+	}
 	while (!philo->sim->stop)
 	{
-		print_action(philo->sim, philo->id, "is thinking");
-		pthread_mutex_lock(philo->left_fork);
-		print_action(philo->sim, philo->id, "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		print_action(philo->sim, philo->id, "has taken a fork");
-		print_action(philo->sim, philo->id, "is eating");
-		philo->last_meal_time = get_time_in_ms();
-		usleep(philo->sim->time_to_eat * 1000);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		philo->meals_eaten++;
-		if (philo->sim->must_eat_count > 0
-			&& philo->meals_eaten >= philo->sim->must_eat_count)
+		think(philo);
+		eat(philo);
+		if (has_eaten_enough(philo))
 			break ;
-		print_action(philo->sim, philo->id, "is sleeping");
-		usleep(philo->sim->time_to_sleep * 1000); //fazer uma função para sleep em si e não usar o usleep, cena de deadlock
+		sleep_philo(philo);
 	}
 	return (NULL);
 }
