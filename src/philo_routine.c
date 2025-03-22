@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 22:52:23 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:40:56 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	*philosopher_routine(void *arg)
 		handle_one_philosopher(philo);
 		return (NULL);
 	}
+	wait_for_turn(philo);
 	while (!philo->sim->stop)
 	{
+		usleep(100);
 		eat(philo);
 		if (has_eaten_enough(philo))
 			break ;
