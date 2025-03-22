@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:52:35 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 13:55:40 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:52:34 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_atoi(const char *str)
 	}
 	return (num * neg);
 }
+
 void	wait_for_turn(t_philo *philo)
 {
 	while (1)

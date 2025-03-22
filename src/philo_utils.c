@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 13:56:26 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:54:11 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,18 @@ void	think(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	wait_for_turn(philo);
-	pthread_mutex_lock(philo->left_fork);
-	print_action(philo->sim, philo->id, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
+	if (philo->id % 2 == 1) //odd philosophers take left fork first
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+	}
+	else //even philosophers take right fork first
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+	}
 	print_action(philo->sim, philo->id, "has taken a fork");
 	print_action(philo->sim, philo->id, "is eating");
 	philo->last_meal_time = get_time_in_ms();
@@ -49,7 +58,6 @@ int	has_eaten_enough(t_philo *philo)
 
 void	handle_one_philosopher(t_philo *philo)
 {
-	//print_action(philo->sim, philo->id, "is thinking");
 	pthread_mutex_lock(philo->left_fork);
 	print_action(philo->sim, philo->id, "has taken a fork");
 	usleep(philo->sim->time_to_die * 1000);
