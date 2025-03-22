@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:52:35 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 22:52:34 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:50:26 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	ft_atoi(const char *str)
 
 void	wait_for_turn(t_philo *philo)
 {
-	while (1)
+	if((philo->id % 2 == 0))
+		usleep(philo->sim->num_philos);
+/* 	while (1)
 	{
 		pthread_mutex_lock(&philo->sim->turn_lock);
 		if ((philo->id % 2 == 1 && philo->sim->turn == 1) || (philo->id % 2 == 0
@@ -58,10 +60,10 @@ void	wait_for_turn(t_philo *philo)
 		}
 		pthread_mutex_unlock(&philo->sim->turn_lock);
 		usleep(100);//avoid busy waiting
-	}
+	} */
 }
 
-void	switch_turn(t_philo *philo)
+/* void	switch_turn(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->sim->turn_lock);
 	if (philo->id % 2 == 1)
@@ -69,4 +71,4 @@ void	switch_turn(t_philo *philo)
 	else
 		philo->sim->turn = 1;//odd philosophers eat
 	pthread_mutex_unlock(&philo->sim->turn_lock);
-}
+} */
