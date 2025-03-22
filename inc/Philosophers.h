@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:32:05 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/20 16:03:45 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:57:13 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_simulation
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_lock;
 	t_philo				*philos;
+	pthread_mutex_t		turn_lock;
+	int turn; // 1 for odd philosophers, 2 for even philosophers
 }						t_simulation;
 
 // Main routine
@@ -62,6 +64,8 @@ void					*monitor_routine(void *arg);
 // Util functions
 int						ft_atoi(const char *str);
 long					get_time_in_ms(void);
+void					wait_for_turn(t_philo *philo);
+void					switch_turn(t_philo *philo);
 
 // Cleanup
 void					cleanup_simulation(t_simulation *sim);
