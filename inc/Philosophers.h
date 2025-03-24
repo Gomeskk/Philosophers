@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:32:05 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 23:50:35 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:28:55 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void					*monitor_routine(void *arg);
 // Util functions
 int						ft_atoi(const char *str);
 long					get_time_in_ms(void);
+void					ft_usleep(long milliseconds);
 void					wait_for_turn(t_philo *philo);
 //void					switch_turn(t_philo *philo);
 

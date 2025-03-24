@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:52:35 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 23:50:26 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:04:35 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,15 @@ int	ft_atoi(const char *str)
 
 void	wait_for_turn(t_philo *philo)
 {
-	if((philo->id % 2 == 0))
+	if ((philo->id % 2 == 0))
 		usleep(philo->sim->num_philos);
-/* 	while (1)
-	{
-		pthread_mutex_lock(&philo->sim->turn_lock);
-		if ((philo->id % 2 == 1 && philo->sim->turn == 1) || (philo->id % 2 == 0
-				&& philo->sim->turn == 2))
-		{
-			pthread_mutex_unlock(&philo->sim->turn_lock);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->sim->turn_lock);
-		usleep(100);//avoid busy waiting
-	} */
 }
 
-/* void	switch_turn(t_philo *philo)
+void	ft_usleep(long milliseconds)
 {
-	pthread_mutex_lock(&philo->sim->turn_lock);
-	if (philo->id % 2 == 1)
-		philo->sim->turn = 2;//even philosophers eat
-	else
-		philo->sim->turn = 1;//odd philosophers eat
-	pthread_mutex_unlock(&philo->sim->turn_lock);
-} */
+	long	start_time;
+
+	start_time = get_time_in_ms();
+	while ((get_time_in_ms() - start_time) < milliseconds)
+		usleep(10); // Small sleep to avoid busy-waiting
+}
