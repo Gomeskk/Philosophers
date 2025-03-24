@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 23:47:32 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:29:56 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	eat(t_philo *philo)
 	print_action(philo->sim, philo->id, "has taken a fork");
 	print_action(philo->sim, philo->id, "is eating");
 	philo->last_meal_time = get_time_in_ms();
-	usleep(philo->sim->time_to_eat * 1000);
+	ft_usleep(philo->sim->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	philo->meals_eaten++;
@@ -36,7 +36,7 @@ void	eat(t_philo *philo)
 void	sleep_philo(t_philo *philo)
 {
 	print_action(philo->sim, philo->id, "is sleeping");
-	usleep(philo->sim->time_to_sleep * 1000);
+	ft_usleep(philo->sim->time_to_sleep);
 }
 
 int	has_eaten_enough(t_philo *philo)
@@ -51,7 +51,7 @@ void	handle_one_philosopher(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	print_action(philo->sim, philo->id, "has taken a fork");
-	usleep(philo->sim->time_to_die * 1000);
+	ft_usleep(philo->sim->time_to_die);
 	print_action(philo->sim, philo->id, "died");
 	pthread_mutex_unlock(philo->left_fork);
 	philo->sim->stop = 1;
