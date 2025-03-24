@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 23:40:56 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:15:18 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*monitor_routine(void *arg)
 		i++;
 		if (i >= sim->num_philos)
 			i = 0;
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }

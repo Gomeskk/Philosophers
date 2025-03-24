@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/24 14:29:56 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/24 23:18:51 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@ void	think(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
-	//wait_for_turn(philo);
-	pthread_mutex_lock(philo->left_fork);
-	print_action(philo->sim, philo->id, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
+	if (philo->id % 2 == 0) // even philosopher
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+	}
+	else // odd philosopher
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_action(philo->sim, philo->id, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+	}
 	print_action(philo->sim, philo->id, "has taken a fork");
 	print_action(philo->sim, philo->id, "is eating");
 	philo->last_meal_time = get_time_in_ms();
@@ -30,7 +38,6 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	philo->meals_eaten++;
-	//switch_turn(philo);
 }
 
 void	sleep_philo(t_philo *philo)
