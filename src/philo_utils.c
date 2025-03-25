@@ -33,11 +33,15 @@ void	eat(t_philo *philo)
 	}
 	print_action(philo->sim, philo->id, "has taken a fork");
 	print_action(philo->sim, philo->id, "is eating");
+	pthread_mutex_lock(&philo->sim->meal_check);
 	philo->last_meal_time = get_time_in_ms();
+	pthread_mutex_unlock(&philo->sim->meal_check);
 	ft_usleep(philo->sim->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_lock(&philo->sim->meal_check);
 	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->sim->meal_check);
 }
 
 void	sleep_philo(t_philo *philo)
@@ -48,9 +52,14 @@ void	sleep_philo(t_philo *philo)
 
 int	has_eaten_enough(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->sim->meal_check);
 	if (philo->sim->must_eat_count > 0
 		&& philo->meals_eaten >= philo->sim->must_eat_count)
-		return (1);
+		{
+			pthread_mutex_unlock(&philo->sim->meal_check);
+			return (1);
+		}
+	pthread_mutex_unlock(&philo->sim->meal_check);
 	return (0);
 }
 
