@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/24 16:15:18 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:38:38 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,16 @@ void	*philosopher_routine(void *arg)
 void	*monitor_routine(void *arg)
 {
 	t_simulation	*sim;
-	int				i;
 
 	sim = (t_simulation *)arg;
-	i = 0;
 	while (!sim->stop)
 	{
-		if (get_time_in_ms()
-			- sim->philos[i].last_meal_time >= sim->time_to_die)
-		{
-			print_action(sim, sim->philos[i].id, "died");
-			sim->stop = 1;
+		check_deaths(sim);
+		if (sim->stop)  // Exit if someone died
 			return (NULL);
-		}
-		i++;
-		if (i >= sim->num_philos)
-			i = 0;
+		check_all_eaten(sim);
 		usleep(100);
 	}
 	return (NULL);
 }
+
