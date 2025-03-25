@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:38 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/22 13:48:15 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:42:07 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	start_simulation(t_simulation *sim)
 	pthread_join(monitor, NULL);
 }
 
-void	init_simulation(t_simulation *sim, int argc, char **argv)
+void	init_simul_mutex_params(t_simulation *sim, int argc, char **argv)
 {
 	int	i;
 
@@ -52,13 +52,23 @@ void	init_simulation(t_simulation *sim, int argc, char **argv)
 	sim->forks = malloc(sim->num_philos * sizeof(pthread_mutex_t));
 	sim->philos = malloc(sim->num_philos * sizeof(t_philo));
 	pthread_mutex_init(&sim->print_lock, NULL);
-	pthread_mutex_init(&sim->turn_lock, NULL);//Initialize turn mutex
+	pthread_mutex_init(&sim->turn_lock, NULL); // Initialize turn mutex
 	sim->turn = 1;
+	// Initialize fork mutexes
 	while (i < sim->num_philos)
 	{
 		pthread_mutex_init(&sim->forks[i], NULL);
 		i++;
 	}
+}
+
+void	init_simulation(t_simulation *sim, int argc, char **argv)
+{
+	int	i;
+
+	// Initialize simulation parameters, mutexes, and forks
+	init_simul_mutex_params(sim, argc, argv);
+	// Initialize philosophers
 	i = 0;
 	while (i < sim->num_philos)
 	{
