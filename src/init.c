@@ -51,6 +51,7 @@ void	init_simul_mutex_params(t_simulation *sim, int argc, char **argv)
 	sim->stop = 0;
 	sim->forks = malloc(sim->num_philos * sizeof(pthread_mutex_t));
 	sim->philos = malloc(sim->num_philos * sizeof(t_philo));
+	pthread_mutex_init(&sim->meal_check, NULL);
 	pthread_mutex_init(&sim->print_lock, NULL);
 	pthread_mutex_init(&sim->turn_lock, NULL); // Initialize turn mutex
 	sim->turn = 1;

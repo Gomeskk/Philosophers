@@ -19,13 +19,16 @@ void	check_deaths(t_simulation *sim)
 	i = 0;
 	while (i < sim->num_philos)
 	{
+		pthread_mutex_lock(&sim->meal_check);
 		if (get_time_in_ms()
 			- sim->philos[i].last_meal_time >= sim->time_to_die)
 		{
+			pthread_mutex_unlock(&sim->meal_check);
 			print_action(sim, sim->philos[i].id, "died");
 			sim->stop = 1;
 			return ;
 		}
+		pthread_mutex_unlock(&sim->meal_check);
 		i++;
 	}
 }

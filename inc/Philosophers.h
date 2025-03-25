@@ -57,6 +57,7 @@ typedef struct s_simulation
 	pthread_mutex_t		print_lock;
 	t_philo				*philos;
 	pthread_mutex_t		turn_lock;
+	pthread_mutex_t		meal_check;
 	int					turn; // 1 for odd philosophers, 2 for even philosophers
 }						t_simulation;
 
