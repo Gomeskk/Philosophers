@@ -6,17 +6,29 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:47 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 00:38:38 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:40:07 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
+#include <string.h>
 
 void	print_action(t_simulation *sim, int id, char *action)
 {
 	pthread_mutex_lock(&sim->print_lock);
 	if (!sim->stop)
-		printf("%ld %d %s\n", get_time_in_ms() - sim->start_time, id, action);
+	{
+		if (ft_strcmp(action, "has taken a fork") == 0)
+			printf(MSG_FORK, get_time_in_ms() - sim->start_time, id);
+		else if (ft_strcmp(action, "is eating") == 0)
+			printf(MSG_EATING, get_time_in_ms() - sim->start_time, id);
+		else if (ft_strcmp(action, "is sleeping") == 0)
+			printf(MSG_SLEEPING, get_time_in_ms() - sim->start_time, id);
+		else if (ft_strcmp(action, "is thinking") == 0)
+			printf(MSG_THINKING, get_time_in_ms() - sim->start_time, id);
+		else if (ft_strcmp(action, "died") == 0)
+			printf(MSG_DEAD, get_time_in_ms() - sim->start_time, id);
+	}
 	pthread_mutex_unlock(&sim->print_lock);
 }
 
@@ -51,11 +63,10 @@ void	*monitor_routine(void *arg)
 	while (!sim->stop)
 	{
 		check_deaths(sim);
-		if (sim->stop)  // Exit if someone died
+		if (sim->stop) // Exit if someone died
 			return (NULL);
 		check_all_eaten(sim);
 		usleep(100);
 	}
 	return (NULL);
 }
-
