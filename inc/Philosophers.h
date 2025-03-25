@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:32:05 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/24 14:28:55 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:44:07 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ typedef struct s_simulation
 	pthread_mutex_t		print_lock;
 	t_philo				*philos;
 	pthread_mutex_t		turn_lock;
-	int					turn;// 1 for odd philosophers, 2 for even philosophers
+	int turn; // 1 for odd philosophers, 2 for even philosophers
 }						t_simulation;
 
 // Main routine
 void					*philosopher_routine(void *arg);
+void					*monitor_routine(void *arg);
 
 // Simulation
 void					handle_one_philosopher(t_philo *philo);
@@ -58,14 +59,16 @@ void					think(t_philo *philo);
 void					eat(t_philo *philo);
 void					sleep_philo(t_philo *philo);
 int						has_eaten_enough(t_philo *philo);
-void					*monitor_routine(void *arg);
 
 // Util functions
 int						ft_atoi(const char *str);
 long					get_time_in_ms(void);
 void					ft_usleep(long milliseconds);
 void					wait_for_turn(t_philo *philo);
-//void					switch_turn(t_philo *philo);
+
+// Checker for finalizing simulation
+void					check_deaths(t_simulation *sim);
+void					check_all_eaten(t_simulation *sim);
 
 // Cleanup
 void					cleanup_simulation(t_simulation *sim);
