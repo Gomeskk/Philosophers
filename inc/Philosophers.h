@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:32:05 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 14:41:04 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:07:33 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_simulation
 	t_philo				*philos;
 	pthread_mutex_t		turn_lock;
 	pthread_mutex_t		meal_check;
+	pthread_mutex_t		death_check;
 	int					turn; // 1 for odd philosophers, 2 for even philosophers
 }						t_simulation;
 

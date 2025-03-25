@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:40:51 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 00:29:43 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:37:35 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void	handle_one_philosopher(t_philo *philo)
 	ft_usleep(philo->sim->time_to_die);
 	print_action(philo->sim, philo->id, "died");
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_lock(&philo->sim->death_check);
 	philo->sim->stop = 1;
+	pthread_mutex_unlock(&philo->sim->death_check);
 }

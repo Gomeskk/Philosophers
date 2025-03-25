@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:38 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 14:42:07 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:09:01 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	init_simul_mutex_params(t_simulation *sim, int argc, char **argv)
 	sim->forks = malloc(sim->num_philos * sizeof(pthread_mutex_t));
 	sim->philos = malloc(sim->num_philos * sizeof(t_philo));
 	pthread_mutex_init(&sim->meal_check, NULL);
+	pthread_mutex_init(&sim->death_check, NULL);
 	pthread_mutex_init(&sim->print_lock, NULL);
 	pthread_mutex_init(&sim->turn_lock, NULL); // Initialize turn mutex
 	sim->turn = 1;
