@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 00:21:55 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 00:36:19 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:12:13 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	check_deaths(t_simulation *sim)
 		{
 			pthread_mutex_unlock(&sim->meal_check);
 			print_action(sim, sim->philos[i].id, "died");
+			pthread_mutex_lock(&sim->death_check);
 			sim->stop = 1;
+			pthread_mutex_unlock(&sim->death_check);
 			return ;
 		}
 		pthread_mutex_unlock(&sim->meal_check);
