@@ -1,4 +1,4 @@
-# Philosophers
+# Philosophers - 42 Project
 
 ## Introduction
 
