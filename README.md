@@ -8,21 +8,31 @@ The **Philosophers** project at 42 introduces students to concurrent programming
 
 The project requires implementing a simulation where philosophers sit around a table and attempt to eat using shared forks. The key challenges include:
 
-  - **Thread management** using ```pthread```
+  - **Thread management** using ```pthread```.
 
-  - **Mutex synchronization** to avoid race conditions
+  - **Mutex synchronization** to avoid race conditions.
 
-  - **Avoiding deadlocks** using proper resource allocation strategies
+  - **Avoiding deadlocks** using proper resource allocation strategies.
 
-  - **Handling starvation** to ensure all philosophers get to eat
+  - **Handling starvation** to ensure all philosophers get to eat.
+
+Each philosopher must follow this cycle:
+
+**take forks → eat → put down forks → sleep → think → repeat**.
+
+Key constraints:
+
+  - A philosopher **must have two forks** to eat.
+
+  - Philosophers should avoid **deadlocks** and **resource starvation**.
+
+  - The program must use **mutexes** and **threads** for synchronization.
 
 ## Mandatory Requirements
 
 Your program must:
 
   - Create **N philosophers**, each represented as a thread.
-
-  - Each philosopher must follow this cycle: **take forks → eat → put down forks → sleep → think → repeat**.
 
   - Use **mutexes** to ensure that forks are picked up and released safely.
 
@@ -58,13 +68,29 @@ Example:
 
   - ```7``` → Number of times all the philosophers need to eat before terminating the program.
 
-## Synchronization Mechanisms
+## Implementation Details
 
-  - **Mutexes** (```pthread_mutex_t```) → Used to prevent data races when philosophers pick up or drop forks.
+### Threads and Mutexes
 
-  - **Threads** (```pthread_create```) → Each philosopher runs as a separate thread.
+  - Each philosopher is represented as a **separate thread**.
 
-  - **Timestamps** → Use ```gettimeofday()``` for precise time tracking.
+  - A **mutex** is used to lock the forks to prevent simultaneous access by multiple threads.
+
+  - A **global mutex** is often used to protect shared resources like printing or checking if a philosopher has died.
+
+### Synchronization Mechanisms
+
+  - **Mutex locks** prevent race conditions when philosophers pick up or put down forks.
+
+  - **Precise timing** is needed to ensure accurate simulation, typically using ```gettimeofday()``` or ```usleep()```.
+
+  - **Avoiding deadlocks** can be done using even/odd philosopher ordering or a hierarchy strategy.
+
+### Fork Handling Strategies
+
+  - **Odd/even approach:** Philosophers with even IDs pick up the right fork first, while those with odd IDs pick up the left fork first.
+
+  - **Waiter approach:** Introduce a controller that grants permission before a philosopher picks up a fork.
 
 ## Bonus Features
 
