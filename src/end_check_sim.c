@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 00:21:55 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 16:12:13 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:12:26 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ void	check_all_eaten(t_simulation *sim)
 	}
 	// If all philosophers have eaten enough, stop the simulation
 	if (finished_philos == sim->num_philos)
-		sim->stop = 1;
+		sim->stop = 2;
 }
