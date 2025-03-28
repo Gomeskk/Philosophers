@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:32:05 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/25 16:07:33 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:39:43 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 #include <unistd.h>
 
 #define SIM_START "---------------------------------------\n\
-|   \033[32mTIME\033[0m   | \033[32mPHILO\033[0m |      \033[32mEVENT\033[0m       |\n\
+|   \033[1;32mTIME\033[0m   | \033[1;32mPHILO\033[0m |      \033[1;32mEVENT\033[0m       |\n\
 ---------------------------------------\n"
 
 #define SIM_END "---------------------------------------\n"
 
-#define MSG_FORK "|\033[38;5;208m%10ld\033[0m|%4d   | \
-\033[35mhas taken a fork\033[0m |\n"
-#define MSG_EATING "|\033[38;5;208m%10ld\033[0m|%4d   |    \
-\033[35mis eating\033[0m     |\n"
-#define MSG_SLEEPING "|\033[38;5;208m%10ld\033[0m|%4d   |   \
-\033[35mis sleeping\033[0m    |\n"
-#define MSG_THINKING "|\033[38;5;208m%10ld\033[0m|%4d   |   \
-\033[35mis thinking\033[0m    |\n"
-#define MSG_DEAD "|\033[38;5;208m%10ld\033[0m|%4d   |       \
-\033[31mdied\033[0m       |\n"
+#define MSG_FORK "|\033[1;38;5;208m%6ld\033[0m    |%4d   | \
+\033[1;35mhas taken a fork🥄\033[0m|\n"
+#define MSG_EATING "|\033[1;38;5;208m%6ld\033[0m    |%4d   |    \
+\033[1;35mis eating🍗\033[0m    |\n"
+#define MSG_SLEEPING "|\033[1;38;5;208m%6ld\033[0m    |%4d   |   \
+\033[1;35mis sleeping💤\033[0m   |\n"
+#define MSG_THINKING "|\033[1;38;5;208m%6ld\033[0m    |%4d   |   \
+\033[1;35mis thinking🧠\033[0m   |\n"
+#define MSG_DEAD "|\033[1;38;5;208m%6ld\033[0m    |%4d   |     \
+\033[1;31m💀DIED💀\033[0m      |\n"
 
 typedef struct s_philo
 {

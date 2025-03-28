@@ -6,7 +6,7 @@
 /*   By: joafaust <joafaust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:54 by joafaust          #+#    #+#             */
-/*   Updated: 2025/03/27 13:14:29 by joafaust         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:50:18 by joafaust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int	main(int argc, char **argv)
 	cleanup_simulation(&sim);
 	printf("%s", SIM_END);
 	if (sim.must_eat_count > 0 && sim.stop == 2) // Only print if must_eat was provided
-		printf("\033[32mSimulation ended: All philosophers have eaten enough meals.\033[0m\n");
+		printf("\033[1;32mSimulation ended: All philosophers have eaten enough meals.\033[0m\n");
 	return (0);
 }
