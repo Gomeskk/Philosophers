@@ -10,7 +10,7 @@ CYAN = \033[36m
 
 # Variables
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 INCLUDES = inc/
 IFLAGS = -I $(INCLUDES) 
 SRC_DIR = src/
@@ -42,5 +42,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+github:
+	@xdg-open "https://github.com/Gomeskk" 2>/dev/null
 
 .PHONY: all clean fclean re
