@@ -68,6 +68,9 @@ Example:
 
   - ```7``` → Number of times all the philosophers need to eat before terminating the program.
 
+## Here is my project
+![Philosopher Visualization](./Philosopher.gif)
+
 ## Implementation Details
 
 ### Threads and Mutexes
